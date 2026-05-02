@@ -1,0 +1,7 @@
+﻿services:
+  api-gateway-service:
+    image: api-gateway-service
+    build:
+      context: .
+      dockerfile: api-gateway-service/Dockerfile
+

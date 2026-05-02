@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-env
+  labels:
+    app: {{ .Release.Name  }}
+data:
+  ASPNETCORE_ENVIRONMENT: "Development"
+  ASPNETCORE_URLS: "http://+:8080"
+  Serilog__Properties__Application: {{ .Values.application.name }}
+  Serilog__WriteTo__1__Args__configure__0__Args__serverUrl: "http://{{ .Values.seq.host }}:{{ .Values.seq.port }}"
+  ReverseProxy__Clusters__usersCluster__Destinations__d1__Address: {{ .Values.yarp.clusters.users.destination | quote }}
+  ReverseProxy__Clusters__accountCluster__Destinations__d1__Address: {{ .Values.yarp.clusters.accounts.destination | quote }}

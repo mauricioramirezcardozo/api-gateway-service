@@ -1,0 +1,28 @@
+replicaCount: 2
+
+image:
+  repository: m4urlcl0/api-gateway-service
+  tag: "latest"
+  pullPolicy: Always
+ 
+application:
+  name: api-gateway-service    
+  containerPort: 8080
+  env:
+    aspnetcoreEnvironment: Development
+ 
+service:
+  type: NodePort
+  port: 80
+  targetPort: 8080
+
+seq:
+  host: seq-svc
+  port: 5341
+
+yarp:
+  clusters:
+    users:
+      destination: http://api-users-service.users
+    accounts:
+      destination: http://api-users-service.users
