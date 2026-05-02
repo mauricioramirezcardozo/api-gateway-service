@@ -6,7 +6,7 @@ image:
   pullPolicy: Always
  
 application:
-  name: api-gateway-service    
+  name: api-gateway-service
   containerPort: 8080
   env:
     aspnetcoreEnvironment: Development
