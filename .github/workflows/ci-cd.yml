@@ -50,9 +50,14 @@ jobs:
       - name: Deploy with helm
         working-directory: k8s/helm
         run: |
-          # Usamos el comando completo de microk8s
+          # 1. Helm instala en 'gateways'
           microk8s helm upgrade --install api-gateway-service . \
+            --namespace gateways \
+            --create-namespace \
             --set image.tag=${{ needs.ci.outputs.image_tag }} \
             --wait --atomic
-
-          microk8s kubectl rollout status deployment/api-gateway-service --timeout=120s
+    
+          # 2. Kubectl verifica en 'gateways'
+          microk8s kubectl rollout status deployment/api-gateway-service \
+            --namespace gateways \
+            --timeout=120s  
