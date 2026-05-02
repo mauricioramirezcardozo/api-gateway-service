@@ -1,0 +1,56 @@
+name: ci-cd apigateway
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    outputs:
+      image_tag: ${{ steps.slug.outputs.sha7 }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set Short SHA
+        id: slug
+        run: echo "sha7=$(echo ${GITHUB_SHA::7})" >> $GITHUB_OUTPUT
+
+      - name: Run Tests
+        run: dotnet test ./api-gateway-service.sln -c Release
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            m4urlcl0/api-gateway-service:latest
+            m4urlcl0/api-gateway-service:${{ steps.slug.outputs.sha7 }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  cd:
+    needs: ci
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy with helm
+        working-directory: k8s/helm
+        run: |
+          helm upgrade --install api-gateway-service . \
+            --set image.tag=${{ needs.ci.outputs.image_tag }} \
+            --wait --atomic
+          kubectl rollout status deployment/api-gateway-service --timeout=120s
