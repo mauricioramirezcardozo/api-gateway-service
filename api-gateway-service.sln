@@ -5,23 +5,22 @@ VisualStudioVersion = 18.4.11626.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "api-gateway-service\WebApi.csproj", "{13020BCA-43BD-4C51-87ED-907BA8690639}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BDD1F22-1AF1-4CA8-92B5-DE8183EA4278}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{E1A9D60D-7F08-492E-B52D-05C2B7A48C5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helm", "helm", "{7434D2D8-65EF-4D4C-9AD2-A38206FF8F1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{F69B81C8-0F8E-4A29-AB47-6E8E3B0BDB9E}"
 	ProjectSection(SolutionItems) = preProject
-		compose.yaml = compose.yaml
+		k8s\helm\templates\configmap.yaml = k8s\helm\templates\configmap.yaml
+		k8s\helm\templates\deployment.yaml = k8s\helm\templates\deployment.yaml
+		k8s\helm\templates\secrets.yaml = k8s\helm\templates\secrets.yaml
+		k8s\helm\templates\service.yaml = k8s\helm\templates\service.yaml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{B42B8F94-56BB-4633-9604-BFAF4C5807F7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{43BE1E7A-2D16-460B-A575-0B3443C7BC9D}"
 	ProjectSection(SolutionItems) = preProject
-		Chart.yaml = Chart.yaml
-		values.yaml = values.yaml
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{87B65BA4-9553-4596-B6A5-9178EC4CC37D}"
-	ProjectSection(SolutionItems) = preProject
-		configmap.yaml = configmap.yaml
-		deployment.yaml = deployment.yaml
-		secrets.yaml = secrets.yaml
-		service.yaml = service.yaml
+		k8s\helm\Chart.yaml = k8s\helm\Chart.yaml
+		k8s\helm\values.yaml = k8s\helm\values.yaml
 	EndProjectSection
 EndProject
 Global
@@ -39,8 +38,9 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B42B8F94-56BB-4633-9604-BFAF4C5807F7} = {1BDD1F22-1AF1-4CA8-92B5-DE8183EA4278}
-		{87B65BA4-9553-4596-B6A5-9178EC4CC37D} = {B42B8F94-56BB-4633-9604-BFAF4C5807F7}
+		{7434D2D8-65EF-4D4C-9AD2-A38206FF8F1E} = {E1A9D60D-7F08-492E-B52D-05C2B7A48C5D}
+		{F69B81C8-0F8E-4A29-AB47-6E8E3B0BDB9E} = {43BE1E7A-2D16-460B-A575-0B3443C7BC9D}
+		{43BE1E7A-2D16-460B-A575-0B3443C7BC9D} = {7434D2D8-65EF-4D4C-9AD2-A38206FF8F1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6458B8AC-BFD8-47BE-A6C6-4753999A62D4}
